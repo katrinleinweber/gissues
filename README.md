@@ -1,9 +1,21 @@
 # Gissues
+**[Github Repo](https://github.com/DeveloperMal/gissues/)**
+
+**[PyPI](https://pypi.python.org/pypi/gissues/)**
+
+
 ![Gissue List](https://s8.postimg.org/rwxz5sffp/Gissues_List.png)
 
-Gissues is a tool that helps developers alike view and manage issues from github on the command line. Unlinke other github clients Gissues focuses on one thing and one thing only. Issues. 
+Gissues is the tool that helps developers view and manage github issues on the command line. 
+Unlinke other github clients Gissues focuses on one thing and one thing only. Issues. 
 
 # Installing
+
+**Prerequisites**
+
+Make sure you have the following installed:
+- Python 3
+- Pip
 
 Install Gissues from pip with:
 
