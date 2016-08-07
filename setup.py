@@ -8,7 +8,7 @@ setup(
     description='View and Manage Github issues from the comfort of your console.',
 
     # The project's main homepage.
-    #url='',
+    url='https://github.com/DeveloperMal/gissues',
 
     # Author details
     author='Malcolm Jones',
