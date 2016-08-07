@@ -1,0 +1,4 @@
+gissues/__pycache__/
+build
+dist
+gissues.egg-info
