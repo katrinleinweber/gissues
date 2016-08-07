@@ -94,6 +94,8 @@ To me, "failure = false" is neither intuitive nor expected.
 
 ## Managing Issues
 
+### Opening and Closing Issues
+
 To open or close issues you can use the `open` and `close` commands respectively. Just provide the issue number.
 
 ```
@@ -112,7 +114,9 @@ Are you sure you want to OPEN this issue (Y/N): y
 
 ```
 
-Create a new issues with the `make` command. You will write the issue's body with the `nano` text editor.
+### Creating and Editing Issues
+
+Create a new issue with the `make` command. You will write the issue's body with the `nano` text editor.
 Issue should be given a title. 
 
 ```
@@ -124,5 +128,79 @@ Creating Issue...
 
 
  **** NEW ISSUE CREATED: [#3] 'Improve Docs' @ https://github.com/DeveloperMal/gissues/issues/3
+
+```
+
+To edit an existing issue use the `edit` command. It will allow you to edit the issue with the issue number you provide. 
+Editing of the issue body will be done in the `nano` text editor.
+
+```
+$> giss DeveloperMal/gissues edit 2
+
+Now editing body for [#2] 'There needs to be more info in readme'...
+ **** Issue [#2] 'There needs to be more info in readme has been EDITED 
+      @ https://github.com/DeveloperMal/gissues/issues/2
+
+```
+
+### Commenting on Issues
+
+Gissues' `comment` commands allows you to comment on an issue and view comments on an issue. You will make a comment on the issue with the issuenumber you provide. When making a new comment the body of the comment will be written with the `nano` text editor. 
+
+```
+$> giss DeveloperMal/gissues comment 2
+
+Now creating comment on issue [#2] 'There needs to be more info in readme'...
+ **** Comment Successfully CREATED for [#2] 'There needs to be more info in readme'...
+
+```
+
+To view comments on an issue use the `-s` or `--show` flag on the `comment` command.
+
+```
+$> giss kennethreitz/requests comment 3296 -s
+
+== PAGE 1 OUT OF 2 ==== kennethreitz/requests ==
+
+--------------------------------------------------
+[Lukasa commented 06/09/16 @ 08:10]
+What version of requests are you using?
+--------------------------------------------------
+
+
+--------------------------------------------------
+[Gaasmann commented 07/04/16 @ 13:12]
+Hello,
+Requests version is 2.7.0.
+Thanks
+--------------------------------------------------
+
+
+--------------------------------------------------
+[Lukasa commented 07/04/16 @ 13:30]
+Cool, that's a good spot.
+
+Yes, there is a minor bug in `resolve_redirects`. Specifically, while `resolve_redirects` attempts to remove proxy information, it cannot actually tell the difference between a proxy that was passed in via the command-line API or from the session and one that was extracted from the environment. This is because `resolve_redirects` is passed the *computed* `proxies` argument, not the *user's* `proxies` argument.
+
+With the way the code in requests is structured, this is a very difficult problem to solve. One option is to hang the original `proxies` kwarg off the `Request` object: this will allow `rebuild_proxies` to essentially re-calculate the proxies argument. Another option is to suggest that the `NO_PROXY` environment variable overrides the user proxies argument for redirects: this is out of line with what we normally do, so I'm inclined to not do this. A third option is to try to do something wacky with storing the original `proxies` kwarg value and passing it to `Session.send` so that we can pass it to `resolve_redirects`, but that seems kind of nutty.
+
+Does anyone else have an opinion on how to go about doing this that doesn't suck as much as the three I have just mentioned? @sigmavirus24?
+--------------------------------------------------
+
+
+--------------------------------------------------
+[Lukasa commented 07/04/16 @ 13:36]
+For what it's worth, I'd argue that this is a good indication that `proxies` (and probably `verify` and `cert`) are being handled at the wrong level of abstraction. Arguably, the core logic about deciding which proxy to use (and, by analogy, how to work the TLS) belongs more on Transport Adapters than on Sessions: it's a property of the connection, not a property of the HTTP layer.
+
+We can fix that up, but it requires a breaking change in 3.0.0, which is...less than ideal.
+--------------------------------------------------
+
+
+--------------------------------------------------
+[sigmavirus24 commented 07/04/16 @ 14:18]
+What if Request/PreparedRequest objects had hidden state about session level settings and per-request level settings (which I think you're referring to as "user" settings) so that we could distinguish the two? Storing there, means allowing the TransportAdapter to resolve things would be (maybe?) a simpler change.
+--------------------------------------------------
+
+== PAGE 1 OUT OF 2 ==== kennethreitz/requests ==
 
 ```
