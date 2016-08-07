@@ -216,3 +216,7 @@ What if Request/PreparedRequest objects had hidden state about session level set
 == PAGE 1 OUT OF 2 ==== kennethreitz/requests ==
 
 ```
+
+# License
+
+You are free to copy, modify, and distribute Gissues with attribution under the terms of the MIT license. See the LICENSE file for details.
