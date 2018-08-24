@@ -19,7 +19,7 @@ Make sure you have the following installed:
 
 Install Gissues from pip with:
 
-````
+```
 pip install gissues
 ```
 
